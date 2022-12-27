@@ -5,5 +5,11 @@
 body{
     background-color: black;
     overflow: hidden;
-
+}
+:modal{
+    background-color: white;
+}
+#score{
+    height: 40px;
+    color:aliceblue
 }

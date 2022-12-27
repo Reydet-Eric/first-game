@@ -3,6 +3,7 @@ const ctx =canvas.getContext('2d');
 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
+let score= 0
 
 ctx.beginPath();
 ctx.arc(canvas.width / 2, canvas.height / 2, 30, 0, Math.PI * 2, false);
@@ -119,7 +120,10 @@ ctx.fillStyle = "rgba(0, 0, 0, 0.1)";
 ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 player.draw();
-
+const scor=document.querySelector('.score')
+// const main=document.querySelector('body')
+let affichScore
+ctx.fillText(`Score: ${score}`,10,20)
 projectiles.forEach((projectile) => projectile.update());
 particles.forEach((particle, index) => {
     if (particle.alpha <= 0) {
@@ -156,26 +160,35 @@ enemies.forEach((enemy, enemyIndex) => {
                   y: (Math.random() - 0.5) * 3,
                 }
               )
-            );
+            )
           }
         if (enemy.radius - 10 > 5) {
+          
             gsap.to(enemy, {
             radius : enemy.radius - 10,
             });
+            score = score+10
+            console.log(score)
+                scor.innerText=`score: ${score}`
+           
+         
             setTimeout(() => {
               projectiles.splice(projectileIndex, 1);
             }, 0);
+         
           } else {
         setTimeout(() => {
           enemies.splice(enemyIndex, 1);
           projectiles.splice(projectileIndex, 1);
         }, 0);
+        
     }
      }
     });
      const distPlayerEnemy = Math.hypot(player.x - enemy.x, player.y - enemy.y);
      if (distPlayerEnemy - enemy.radius - player.radius <= 0) {
          cancelAnimationFrame(animationId);
+            alert(`ton score :${score}`)
      }
 
     enemy.update();
